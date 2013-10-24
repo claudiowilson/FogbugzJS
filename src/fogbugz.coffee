@@ -2,7 +2,7 @@ https = require 'https'
 xml2js = require 'xml2js'
 fogbugzURL = null
 
-SetURL = (url) -> fogbugzURL = "https://" + url + "/api.asp?"
+SetURL = (url) -> fogbugzURL = url + "/api.asp?"
 
 #User Authentication
 LogOn = (username, password, callback) ->
