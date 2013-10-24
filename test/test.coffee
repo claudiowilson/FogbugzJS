@@ -11,8 +11,10 @@ app.configure( ->
 fogbugz.SetURL(settings.fogbugzURL)
 
 app.get('/', (request, response) ->
-	fogbugz.LogOn(settings.fogbugzUser, settings.fogbugzPassword, null, (error, token) ->
-		console.log(token)
+	fogbugz.LogOn(settings.fogbugzUser, settings.fogbugzPassword, (error, token) ->
+		fogbugz.ListProjects({'fWrite': true, 'ixProject': 1, 'fIncludeDeleted': 1}, token, (err, result) ->
+			if err then console.log(err.message) else console.log(result)
+		)
 	)
 )
 

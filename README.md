@@ -11,3 +11,6 @@ and returns results in JSON.
 If you want to test any of the written functions, edit `lib/test/settings.js` with the provided credentials to a Fogbugz site, edit `test.coffee` with the whatever functions you want to edit, compile it using `coffee --compile --output lib/test test/` and then run `node test.js`.
 
 I will be adding a Jasmine/Mocha test suite in the future.
+
+###How to Use
+See `test/test.coffee` for an example of how to point the module to a Fogbugz site and to call functions

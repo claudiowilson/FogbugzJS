@@ -5,7 +5,7 @@ fogbugzURL = null
 SetURL = (url) -> fogbugzURL = url
 
 #User Authentication
-LogOn = (username, password, token, callback) ->
+LogOn = (username, password, callback) ->
 	CallApi('cmd=logon&email=' + username + '&password=' + password, null, (err, result) ->
 		if err then callback(new Error('Error logging in: ' + err.message)) else callback(null, result['token'][0])
 	)
