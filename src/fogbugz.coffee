@@ -199,7 +199,7 @@ CaseOptions = (options) ->
 
 EncodeOptions = (options) ->
 	for key, val of options
-		options[key] = encodeURI(val)
+		options[key] = encodeURIComponent(val)
 	return options
 
 # Calls the Fogbugz XML Api and returns the result as JSON
