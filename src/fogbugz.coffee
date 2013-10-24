@@ -9,10 +9,10 @@ LogOn = (username, password, token, callback) ->
 
 SetURL = (url) -> fogbugzURL = url
 
+
 # Calls the Fogbugz XML Api and returns the result as JSON
 # TODO: Better parsing of URL (eg use sax to parse it while it comes through)
 CallApi = (commandText, token = '', callback) ->
-	#if(token) token = '&token=' + token else ''
 	if !fogbugzURL
 		callback(new Error('You have not specified a URL to call the API with'))
 		return
@@ -42,3 +42,5 @@ CallApi = (commandText, token = '', callback) ->
 			'&token= #{nullabletoken}'
 		else
 			''
+
+exports.LogOn = LogOn
