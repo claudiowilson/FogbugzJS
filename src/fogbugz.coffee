@@ -7,6 +7,11 @@ LogOn = (username, password, token, callback) ->
 		if err then callback(new Error('Error logging in ' + err.message)) else callback(null, result['token'][0])
 	)
 
+LogOff = (token, callback) ->
+	CallApi('cmd=logoff&token=',token, (err, result) ->
+		if err then callback(new Error('Error logging off ' + err.message)) else callback(true)
+	)
+
 SetURL = (url) -> fogbugzURL = url
 
 # Calls the Fogbugz XML Api and returns the result as JSON
