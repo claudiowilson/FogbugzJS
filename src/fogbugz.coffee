@@ -138,7 +138,7 @@ FowardCase = (options, token, callback) ->
 		if err then callback(new Error('Error making new case')) else callback(null)
 	)
 
-# Used by all cases, some have editional info for method
+# Used by all cases, some have additional info for method
 CaseOptions = (options) ->
 	appendOptions = ''
 	if(options['ixBug']) then appendOptions += "&ixBug=#{options['ixBug']}"
