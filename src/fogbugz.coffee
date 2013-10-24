@@ -16,11 +16,11 @@ LogOff = (token, callback) ->
 	)
 
 #Lists
- ListProjects = (options, token, callback) ->
+ListProjects = (options, token, callback) ->
  	command = 'cmd=listProjects'
- 	if(options['fWrite']) then command += '&fWrite=1'
- 	if(options['xProject']) then command += '&ixProject=#{ixProject}'
- 	if(options['fIncludeDeleted']) then command += '&fIncludeDeleted=1'
+ 	if(options['fWrite']) then command += "&fWrite=1"
+ 	if(options['ixProject']) then command += "&ixProject=#{options.ixProject}"
+ 	if(options['fIncludeDeleted']) then command += "&fIncludeDeleted=1"
 
  	CallApi(command, token, (err, result) ->
  		if err then callback(new Error('Error listing projects: ' + err.message)) else callback(null, result['projects'][0]['project'])
@@ -33,6 +33,9 @@ CallApi = (commandText, token = '', callback) ->
 		callback(new Error('You have not specified a URL to call the API with'))
 		return
 	xml = ''
+
+	GetToken = (nullableToken) ->
+		if nullableToken then "&token=#{nullableToken}" else ''
 
 	https.get(fogbugzURL + commandText + GetToken(token), (response) ->
 		response.on('data', (chunk) ->
@@ -53,8 +56,7 @@ CallApi = (commandText, token = '', callback) ->
 		)
 	)
 
-	GetToken = (nullableToken) ->
-		if nullableToken then '&token= #{nullabletoken}' else ''
-
 exports.LogOn = LogOn
 exports.LogOff = LogOff
+exports.SetURL = SetURL
+exports.ListProjects = ListProjects
