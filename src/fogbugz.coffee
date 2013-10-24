@@ -17,6 +17,7 @@ LogOff = (token, callback) ->
 
 #--------------- Projects ---------------------
 ListProjects = (options, token, callback) ->
+	options = EncodeOptions(options)
  	command = 'cmd=listProjects'
  	if(options['fWrite']) then command += "&fWrite=1"
  	if(options['ixProject']) then command += "&ixProject=#{options.ixProject}"
@@ -31,6 +32,7 @@ ListProjects = (options, token, callback) ->
 # ---------------- Cases -----------------------
 
 SearchCases = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=search'
 	if(options['q']) then command += "&q=#{options['q']}"
 	if(options['cols']) then command += "&cols=#{options['cols']}"
@@ -41,6 +43,7 @@ SearchCases = (options, token, callback) ->
 	)
 
 NewCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=new'
 	command += CaseOptions(options)
 
@@ -49,6 +52,7 @@ NewCase = (options, token, callback) ->
 	)
 
 EditCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=edit'
 	command += CaseOptions(options)
 
@@ -57,6 +61,7 @@ EditCase = (options, token, callback) ->
 	)
 
 AssignCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=assign'
 	command += CaseOptions(options)
 
@@ -65,6 +70,7 @@ AssignCase = (options, token, callback) ->
 	)
 
 ReactivateCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=reactivate'
 	command += CaseOptions(options)
 
@@ -73,6 +79,7 @@ ReactivateCase = (options, token, callback) ->
 	)
 
 ReopenCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=reopen'
 	command += CaseOptions(options)
 
@@ -81,6 +88,7 @@ ReopenCase = (options, token, callback) ->
 	)
 
 ResolveCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=resolve'
 	command += CaseOptions(options)
 	if(options['ixStatus']) then command += "&ixStatus=#{options['ixStatus']}"
@@ -90,6 +98,7 @@ ResolveCase = (options, token, callback) ->
 	)
 
 CloseCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=close'
 	command += CaseOptions(options)
 
@@ -98,6 +107,7 @@ CloseCase = (options, token, callback) ->
 	)
 
 EmailCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=email'
 	command += CaseOptions(options)
 	if(options['sFrom']) then command += "&sFrom=#{options['sFrom']}"
@@ -112,6 +122,7 @@ EmailCase = (options, token, callback) ->
 	)
 
 ReplyCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=reply'
 	command += CaseOptions(options)
 	if(options['sFrom']) then command += "&sFrom=#{options['sFrom']}"
@@ -126,6 +137,7 @@ ReplyCase = (options, token, callback) ->
 	)
 
 FowardCase = (options, token, callback) ->
+	options = EncodeOptions(options)
 	command = 'cmd=forward'
 	command += CaseOptions(options)
 	if(options['sFrom']) then command += "&sFrom=#{options['sFrom']}"
@@ -183,6 +195,13 @@ CaseOptions = (options) ->
 
 # --------------- End of Cases -----------------
 
+#---------------- Helpers -----------------------
+
+EncodeOptions = (options) ->
+	for key, val of options
+		options[key] = encodeURI(val)
+	return options
+
 # Calls the Fogbugz XML Api and returns the result as JSON
 # TODO: Better parsing of URL (eg use sax to parse it while it comes through)
 CallApi = (commandText, token = '', callback) ->
@@ -212,6 +231,8 @@ CallApi = (commandText, token = '', callback) ->
 			)
 		)
 	)
+
+#------------- End of Helpers ---------------------
 
 exports.LogOn = LogOn
 exports.LogOff = LogOff
