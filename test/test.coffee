@@ -8,6 +8,8 @@ app.configure( ->
 	app.use(express.bodyParser())
 )
 
+fogbugz.SetUrl(settings.fogbugzURL)
+
 app.get('/', (request, response) ->
 	fogbugz.LogOn(settings.fogbugzUser, settings.fogbugzPassword, null, (error, token) ->
 		console.log(token)
