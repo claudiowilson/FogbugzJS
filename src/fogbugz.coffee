@@ -15,7 +15,7 @@ LogOff = (token, callback) ->
 		if err then callback(new Error('Error logging off: ' + err.message)) else callback(null)
 	)
 
-#Projects
+#--------------- Projects ---------------------
 ListProjects = (options, token, callback) ->
  	command = 'cmd=listProjects'
  	if(options['fWrite']) then command += "&fWrite=1"
@@ -26,6 +26,7 @@ ListProjects = (options, token, callback) ->
  		if err then callback(new Error('Error listing projects: ' + err.message)) else callback(null, result['projects'][0]['project'])
  	)
 
+#-------------- End of Projects ---------------
 
 # ---------------- Cases -----------------------
 
