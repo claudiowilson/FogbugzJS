@@ -8,7 +8,10 @@ This is a npm package for nodejs written in coffeescript that calls the [FogBugz
 and returns results in JSON.
 
 ###Testing
-If you want to test any of the written functions, edit `lib/test/settings.js` with the provided credentials to a Fogbugz site, edit `test.coffee` with the whatever functions you want to edit, compile it using `coffee --compile --output lib/test test/` and then run `node test.js`.
+If you want to test any of the written functions, edit `lib/test/settings.js` with the provided credentials to a Fogbugz site, 
+edit `test.coffee` with the whatever functions you want to edit, 
+compile it using `coffee --compile --output lib/test test/`, run `npm install` on the directory (if you haven't already) 
+and then run `node lib/test/test.js`.
 
 I will be adding a Jasmine/Mocha test suite in the future.
 
