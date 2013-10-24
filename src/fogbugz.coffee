@@ -2,7 +2,7 @@ https = require 'https'
 xml2js = require 'xml2js'
 fogbugzURL = null
 
-SetURL = (url) -> fogbugzURL = url
+SetURL = (url) -> fogbugzURL = "http://" + url + "/api.asp?"
 
 #User Authentication
 LogOn = (username, password, callback) ->
@@ -15,7 +15,7 @@ LogOff = (token, callback) ->
 		if err then callback(new Error('Error logging off: ' + err.message)) else callback(null)
 	)
 
-#Lists
+#Projects
 ListProjects = (options, token, callback) ->
  	command = 'cmd=listProjects'
  	if(options['fWrite']) then command += "&fWrite=1"
@@ -25,6 +25,20 @@ ListProjects = (options, token, callback) ->
  	CallApi(command, token, (err, result) ->
  		if err then callback(new Error('Error listing projects: ' + err.message)) else callback(null, result['projects'][0]['project'])
  	)
+
+
+#Cases
+SearchCases = (options, token, callback) ->
+	command = 'cmd=search'
+	if(options['q']) then command += "&q=#{options['q']}"
+	if(options['cols']) then command += "&cols=#{options['cols']}"
+	if(options['max']) then command += "&max=#{options['max']}"
+
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error searching cases')) else callback(null, result['cases'][0]['case'])
+	)
+
+
 
 # Calls the Fogbugz XML Api and returns the result as JSON
 # TODO: Better parsing of URL (eg use sax to parse it while it comes through)
@@ -60,3 +74,4 @@ exports.LogOn = LogOn
 exports.LogOff = LogOff
 exports.SetURL = SetURL
 exports.ListProjects = ListProjects
+exports.SearchCases = SearchCases
