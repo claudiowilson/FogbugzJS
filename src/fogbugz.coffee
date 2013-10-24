@@ -6,12 +6,12 @@ SetURL = (url) -> fogbugzURL = url
 
 #User Authentication
 LogOn = (username, password, callback) ->
-	CallApi('cmd=logon&email=' + username + '&password=' + password, null, (err, result) ->
+	CallApi("cmd=logon&email=#{username}&password=#{password}", null, (err, result) ->
 		if err then callback(new Error('Error logging in: ' + err.message)) else callback(null, result['token'][0])
 	)
 
 LogOff = (token, callback) ->
-	CallApi('cmd=logoff',token, (err, result) ->
+	CallApi('cmd=logoff', token, (err, result) ->
 		if err then callback(new Error('Error logging off: ' + err.message)) else callback(null)
 	)
 
