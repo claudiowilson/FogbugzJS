@@ -48,7 +48,7 @@ NewCase = (options, token, callback) ->
 	command += CaseOptions(options)
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case: ' + err.message)) else callback(result['case'][0])
+		if err then callback(new Error('Error making new case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 EditCase = (options, token, callback) ->
