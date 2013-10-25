@@ -39,7 +39,7 @@ SearchCases = (options, token, callback) ->
 	if(options['max']) then command += "&max=#{options['max']}"
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error searching cases')) else callback(null, result['cases'][0]['case'])
+		if err then callback(new Error('Error searching cases: ' + err.message)) else callback(null, result['cases'][0]['case'])
 	)
 
 NewCase = (options, token, callback) ->
@@ -48,7 +48,7 @@ NewCase = (options, token, callback) ->
 	command += CaseOptions(options)
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error making new case: ' + err.message)) else callback(result['case'][0])
 	)
 
 EditCase = (options, token, callback) ->
@@ -57,7 +57,7 @@ EditCase = (options, token, callback) ->
 	command += CaseOptions(options)
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error editing case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 AssignCase = (options, token, callback) ->
@@ -66,7 +66,7 @@ AssignCase = (options, token, callback) ->
 	command += CaseOptions(options)
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error assigning case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 ReactivateCase = (options, token, callback) ->
@@ -75,7 +75,7 @@ ReactivateCase = (options, token, callback) ->
 	command += CaseOptions(options)
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error reactivating case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 ReopenCase = (options, token, callback) ->
@@ -84,7 +84,7 @@ ReopenCase = (options, token, callback) ->
 	command += CaseOptions(options)
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error reopening case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 ResolveCase = (options, token, callback) ->
@@ -93,8 +93,8 @@ ResolveCase = (options, token, callback) ->
 	command += CaseOptions(options)
 	if(options['ixStatus']) then command += "&ixStatus=#{options['ixStatus']}"
 
-	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+	CallApi(command, token, (err, result) ->null, result['case'][0]
+		if err then callback(new Error('Error resolving case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 CloseCase = (options, token, callback) ->
@@ -103,7 +103,7 @@ CloseCase = (options, token, callback) ->
 	command += CaseOptions(options)
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error closing case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 EmailCase = (options, token, callback) ->
@@ -118,7 +118,7 @@ EmailCase = (options, token, callback) ->
 	if(options['ixBugEventAttachment']) then command += "&ixBugEventAttachment=#{options['ixBugEventAttachment']}"
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error emailing case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 ReplyCase = (options, token, callback) ->
@@ -133,7 +133,7 @@ ReplyCase = (options, token, callback) ->
 	if(options['ixBugEventAttachment']) then command += "&ixBugEventAttachment=#{options['ixBugEventAttachment']}"
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error replying to case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 FowardCase = (options, token, callback) ->
@@ -148,7 +148,7 @@ FowardCase = (options, token, callback) ->
 	if(options['ixBugEventAttachment']) then command += "&ixBugEventAttachment=#{options['ixBugEventAttachment']}"
 
 	CallApi(command, token, (err, result) ->
-		if err then callback(new Error('Error making new case')) else callback(null)
+		if err then callback(new Error('Error forwarding case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
 # Used by all cases, some have additional info for method
