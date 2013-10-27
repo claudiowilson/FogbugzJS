@@ -18,14 +18,14 @@ LogOff = (token, callback) ->
 #--------------- Projects ---------------------
 ListProjects = (options, token, callback) ->
 	options = EncodeOptions(options)
- 	command = 'cmd=listProjects'
- 	if(options['fWrite']) then command += "&fWrite=1"
- 	if(options['ixProject']) then command += "&ixProject=#{options.ixProject}"
- 	if(options['fIncludeDeleted']) then command += "&fIncludeDeleted=1"
+	command = 'cmd=listProjects'
+	if(options['fWrite']) then command += "&fWrite=1"
+	if(options['ixProject']) then command += "&ixProject=#{options.ixProject}"
+	if(options['fIncludeDeleted']) then command += "&fIncludeDeleted=1"
 
- 	CallApi(command, token, (err, result) ->
- 		if err then callback(new Error('Error listing projects: ' + err.message)) else callback(null, result['projects'][0]['project'])
- 	)
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error listing projects: ' + err.message)) else callback(null, result['projects'][0]['project'])
+	)
 
 #-------------- End of Projects ---------------
 
@@ -93,7 +93,7 @@ ResolveCase = (options, token, callback) ->
 	command += CaseOptions(options)
 	if(options['ixStatus']) then command += "&ixStatus=#{options['ixStatus']}"
 
-	CallApi(command, token, (err, result) ->null, result['case'][0]
+	CallApi(command, token, (err, result) ->
 		if err then callback(new Error('Error resolving case: ' + err.message)) else callback(null, result['case'][0])
 	)
 
