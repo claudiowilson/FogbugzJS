@@ -13,7 +13,9 @@ edit `test.coffee` with the whatever functions you want to edit,
 compile it using `coffee --compile --output test/lib test/`, run `npm install` on the directory (if you haven't already) 
 and then run `node test/lib/test.js`.
 
-I will be adding a Jasmine/Mocha test suite in the future.
+###Unit Tests
+Install `jasmine-node` globally, by running `npm install jasmine-node -g` and then run
+`jasmine-node --cofffe spec/`. You need a valid settings in `test/lib/settings.js`
 
 ###How to Use
 See `test/test.coffee` for an example of how to point the module to a Fogbugz site and to call functions
