@@ -12,13 +12,21 @@
 
   app.configure(function() {
     app.use(express.logger('dev'));
-    return app.use(express.bodyParser());
+    app.use(express.bodyParser());
+    return app.use(express.cookieParser('testadoodle'));
   });
 
   fogbugz.SetURL(settings.fogbugzURL);
 
   app.get('/', function(request, response) {
     return fogbugz.LogOn(settings.fogbugzUser, settings.fogbugzPassword, function(error, token) {
+      var expiry;
+      expiry = new Date();
+      expiry.setMonth(expiry.getMonth() + 1);
+      response.cookie('token', token, {
+        expires: expiry,
+        httpOnly: true
+      });
       return fogbugz.ListProjects({
         'fWrite': true,
         'ixProject': 1,
@@ -27,9 +35,36 @@
         if (err) {
           return console.log(err.message);
         } else {
-          return console.log(result);
+          return response.send(200);
         }
       });
+    });
+  });
+
+  app.get('/cases', function(request, response) {
+    return fogbugz.SearchCases({
+      q: 'assignedTo:"Claudio Wilson"',
+      max: 20,
+      cols: 'sTitle'
+    }, request.cookies.token, function(err, result) {
+      if (err) {
+        return console.log(err.message);
+      } else {
+        console.log(result);
+        return response.send(200);
+      }
+    });
+  });
+
+  app.get('/views', function(request, response) {
+    return fogbugz.ViewPerson({
+      ixPerson: 2
+    }, request.cookies.token, function(err, result) {
+      if (err) {
+        return console.log(err.message);
+      } else {
+        return console.log(result);
+      }
     });
   });
 

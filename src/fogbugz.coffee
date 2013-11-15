@@ -195,6 +195,81 @@ CaseOptions = (options) ->
 
 # --------------- End of Cases -----------------
 
+# --------------- Views ------------------------
+ViewProject = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewProject'
+	if(options['ixProject']) then command += "&ixProject=#{options['ixProject']}"
+	if(options['sProject']) then command += "&sProject=#{options['sProject']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing project: ' + err.message)) else callback(null, result['project'][0]))
+
+ViewArea = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewArea'
+	if(options['ixArea']) then command += "&ixArea=#{options['ixArea']}"
+	if(options['sArea']) then command += "&ixArea=#{options['sArea']}"
+	if(options['ixProject']) then command += "&ixProject=#{options['ixProject']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing area: ' + err.message)) else callback(null, result['area'][0]))
+
+ViewPerson = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewPerson'
+	if(options['ixPerson']) then command += "&ixProject=#{options['ixPerson']}"
+	if(options['sEmail']) then command += "&sProject=#{options['sEmail']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing person: ' + err.message)) else callback(null, result['person'][0]))
+
+ViewFixFor = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewFixFor'
+	if(options['ixFixFor']) then command += "&ixProject=#{options['ixFixFor']}"
+	if(options['sFixFor']) then command += "&sProject=#{options['sFixFor']}"
+	if(options['ixProject']) then command += "&sProject=#{options['ixProject']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing milestone: ' + err.message)) else callback(null, result['fixfor'][0]))
+
+ViewCategory = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewCategory'
+	if(options['ixCategory']) then command += "&ixProject=#{options['ixCategory']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing category: ' + err.message)) else callback(null, result['category'][0]))
+
+ViewPriority = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewPriority'
+	if(options['ixPriority']) then command += "&ixProject=#{options['ixPriority']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing priority: ' + err.message)) else callback(null, result['priority'][0]))
+
+ViewStatus = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewStatus'
+	if(options['ixCategory']) then command += "&ixProject=#{options['ixCategory']}"
+	if(options['ixStatus']) then command += "&ixProject=#{options['ixStatus']}"
+	if(options['sStatus']) then command += "&ixProject=#{options['sStatus']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing status: ' + err.message)) else callback(null, result['status'][0]))
+
+ViewMailbox = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewMailbox'
+	if(options['ixMailbox']) then command += "&ixProject=#{options['ixMailbox']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing mailbox: ' + err.message)) else callback(null, result['mailbox'][0]))
+
+ViewTemplate = (options, token, callback) ->
+	options = EncodeOptions(options)
+	command = 'cmd=viewTemplate'
+	if(options['ixTemplate']) then command += "&ixProject=#{options['ixTemplate']}"
+	CallApi(command, token, (err, result) ->
+		if err then callback(new Error('Error viewing template: ' + err.message)) else callback(null, result['template'][0]))
+
+
+
+# --------------- End Views ---------------------
 #---------------- Helpers -----------------------
 
 EncodeOptions = (options) ->
@@ -249,3 +324,12 @@ exports.ReactivateCase = ReactivateCase
 exports.AssignCase = AssignCase
 exports.EditCase = EditCase
 exports.NewCase = NewCase
+exports.ViewProject = ViewProject
+exports.ViewArea = ViewArea
+exports.ViewPerson = ViewPerson
+exports.ViewFixFor = ViewFixFor
+exports.ViewCategory = ViewCategory
+exports.ViewPriority = ViewPriority
+exports.ViewStatus = ViewStatus
+exports.ViewMailbox = ViewMailbox
+exports.ViewTemplate = ViewTemplate
