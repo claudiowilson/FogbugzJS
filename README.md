@@ -15,7 +15,7 @@ and then run `node test/lib/test.js`.
 
 ###Unit Tests
 Install `jasmine-node` globally, by running `npm install jasmine-node -g` and then run
-`jasmine-node --cofffe spec/`. You need a valid settings in `test/lib/settings.js`
+`jasmine-node --coffee spec/`. You need valid settings in `test/lib/settings.js`
 
 ###How to Use
 See `test/test.coffee` for an example of how to point the module to a Fogbugz site and to call functions

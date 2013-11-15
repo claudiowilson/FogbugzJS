@@ -1,5 +1,5 @@
 express = require 'express'
-fogbugz = require './../fogbugz'
+fogbugz = require './../../lib/fogbugz'
 settings = require './settings'
 app = express()
 
